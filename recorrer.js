@@ -1,5 +1,8 @@
 <script>
-	
+	function Actualizar(){
+		document.getElementById("apellido").style.display='none';
+		
+	}
  
 	function stopTab( e,indice ) {
     var acumulador=document.getElementById("acumulador").value; //7

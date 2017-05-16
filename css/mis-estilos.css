@@ -8,3 +8,13 @@ body {
   padding: 10px 0 0 0;
   margin-left: 150px;
 }
+
+#main{
+background: #fff none repeat scroll 0 0;
+  border: 3px solid #999;
+  margin-top: 5px;
+  min-height: 400px;
+  padding: 15px;
+  margin-left: 12px;
+  width: 1010px;"
+}

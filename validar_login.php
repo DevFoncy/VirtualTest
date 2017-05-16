@@ -1,9 +1,8 @@
 <?php 
 include 'inc/header.php';
 	session_start();
-
-	$nombre=$_POST['username'];
-	$contra=$_POST['password'];
+	$nombre=$_POST['user'];
+	$contra=$_POST['contra'];
 
 	$conex2= new Database(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 
@@ -12,17 +11,19 @@ include 'inc/header.php';
 
 
 	if($validar_usuario==1 && $validar_contra==1){
-		
+	
 		$_SESSION['usuario']=$nombre;
 		$_SESSION['contra']=$contra;
-		header("Location: exam.php");  
+		$_SESSION["autenticado"]= "SI";
+		//header("Location: perfil.php");  
 	}
 	else{
 		//crypt($contra); 
-		
-		header("Location: index.php");
-		
+
+		$_SESSION["autenticado"]= "NO";
+		echo "<form action='index.php' method='POST'>
+			<input type='text' name='codigo_facultad' value='123' hidden >
+			</form>"; 
 
 	}
-	$conex2->cerrar_conex();
  ?>

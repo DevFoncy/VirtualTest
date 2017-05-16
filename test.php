@@ -2,13 +2,7 @@
 	   include 'recorrer.js' ;?>
 
 
-<div style="background: #E2DBC6 none repeat scroll 0 0;
-  border: 3px solid #999;
-  margin-top: 5px;
-  min-height: 1050px;
-  padding: 15px;
-  margin-left: 12px;
-  width: 1000px;">
+<div id="main">
  <div align="center"></div>
 <?php 
   
@@ -32,6 +26,10 @@
 	  			echo "<br> <strong>CARRERA: </strong>".$nombre_carrera; 
 	  		}
 	  //echo $bloque_id;
+    //para tener vacio la tabla calificacion 
+
+
+
 	 //dinamico
 	$conex2->preparar("SELECT  s.nombre,c.nombre,c1.nombre, p.id, p.peso_id, p.nombre,p.foto, a1.alt1,a1.alt2, a1.alt3, a1.alt4, a1.alt5, a1.alternativa_sol FROM pregunta p, seccion s, alternativa a1, curso_dividido c1,curso c WHERE p.bloque_id='$bloque_id' and a1.id_pregunta=p.nombre  and a1.bloque='$bloque_id' and p.curso_dividido=c1.id and c1.bloque_id='$bloque_id'and c.id=c1.curso_id and c.bloque_id='$bloque_id' and s.id=c.seccion ");
 	$conex2->ejecutar();
@@ -49,30 +47,30 @@
 
 				if($i==1){
 					echo "<div class='col-md-6 col-md-offset-5'>";
-					echo "<a id='adelante".$i."' type='button' class='btn btn-success' onclick='adelante($i)'>
+					echo "<button id='adelante".$i."' type='button' class='Boton-3DLateralD' onclick='adelante($i)'>
 						<span class='glyphicon glyphicon-chevron-right'></span>Siguiente Pregunta 
-			   			</a>";
+			   			</button>";
 			   			echo "</div>";
 			 
 				}
 			
 				if($i==10){
 					echo "<div class='col-md-6 col-md-offset-5'>";		
-			   		echo "<a id='atras".$i."'  type='button' class='btn btn-danger' onclick='atras($i)'>
+			   		echo "<button id='atras".$i."' class='Boton-3DLateralI' onclick='atras($i)'>
 						<span class='glyphicon glyphicon-chevron-left'></span>Anterior Pregunta
-						</a>";
+						</button>";
 						echo "</div>";
 					}
 
 			    if($i>1 && $i<10){
 			    		echo "<div class='col-md-6 col-md-offset-4'>";
-						echo "<a id='atras".$i."'  type='button' class='btn btn-danger' onclick='atras($i)'>
+						echo "<button id='atras".$i."'  type='button' class='Boton-3DLateralD' onclick='atras($i)'>
 						<span class='glyphicon glyphicon-chevron-left'></span>Anterior Pregunta
-						</a>";
+						</button>";
 
-						echo "<a id='adelante".$i."' type='button' class='btn btn-success' onclick='adelante($i)'>
+						echo "<button id='adelante".$i."' type='button' class='Boton-3DLateralI' onclick='adelante($i)'>
 						<span class='glyphicon glyphicon-chevron-right'></span>Siguiente Pregunta 
-			   			</a>";
+			   			</button>";
 			   			echo "</div>";
 					}
 					
@@ -82,7 +80,8 @@
 					$d=$d+6;
 					$e=$e+6;
 					$f=$f+6;
-
+						echo "<br>";
+						echo "<br>";
 						echo "<br>";
 						echo "<form name='examen' action='prueba.php' method='POST'>";
 						echo "<br> <strong>PREGUNTA   ".$i.": </strong>".$name_pregunta;

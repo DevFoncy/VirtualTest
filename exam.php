@@ -1,6 +1,5 @@
 <?php include 'inc/header.php'; 
- session_start();
- $nombre=$_SESSION['usuario'];
+
  
 ?>
 <div style="background: #fff none repeat scroll 0 0;
