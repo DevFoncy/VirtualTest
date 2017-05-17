@@ -39,12 +39,18 @@ if($_POST){
 			</div> </div> <br>";
 	}
  ?>
-<div id="main">
+
+<div style="background: #C1DDF0;
+  border: 3px solid #999;
+  margin-top: -15px;
+  min-height: 400px;
+  padding: 35px;
+  margin-left: 12px;
+  width: 1010px;"	>
 
 	<div class="container">
 	<section id="content">
 		<form action="index.php" method="POST">
-		
 			<div>
 				<input type="text" placeholder="DNI" required="" id="username" name=user />
 			</div>
@@ -52,8 +58,8 @@ if($_POST){
 				<input type="password" placeholder="Contraseña" required="" id="password" name=contra />
 			</div>
 			<div>
-				<input type="submit" value="Log in" />
-				<a href="#">Lost your password?</a>
+				<input type="submit" value="Ingresar" />
+				<a href="registrar.php" style="font-size: 1.2em;">Registrate Aqui</a>
 				
 			</div>
 			

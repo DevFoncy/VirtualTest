@@ -427,11 +427,11 @@ form:after {
     border              : 2px solid #000;                      /* 2 pixeles de borde negro                                                */
     text-align          : center;                              /* Texto centrado                                                          */
     text-decoration     : none;                                /* Sin decoraciones para el texto (por defecto viene con underline)        */
-    padding             : 10px;                                /* Un poco de padding para que se vea bien el botón                        */
+    padding             : 5px;                                /* Un poco de padding para que se vea bien el botón                        */
     /* La transición en el click (:active) tiene que ser rápida 150ms (transform y color), la transición para cambiar de foco en 150ms    */
     transition          : transform 0.15s ease-in-out, color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;   
     font-family         : Karla, sans-serif;                   /* Fuente de google                                                        */
-    font-size           : 1.7rem;                              /* Tamaño de la fuente                                                     */
+    font-size           : 12;                              /* Tamaño de la fuente                                                     */
     color               : #FFF;                                /* Color del texto en blanco                                               */
     margin              : 10px;                                /* 10 pixeles de margen para separar los botones entre si.                 */
     position            : relative;                            /* Posición relativa para que sus hijos partan desde él                    */

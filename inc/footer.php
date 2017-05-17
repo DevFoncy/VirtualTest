@@ -3,7 +3,7 @@
 	<div style="background:#444;color:#fff;padding:10px;">
 	<h5> Dirección : Av. Juan Pablo II 306, Bellavista - Callao  
 	 <a class="pull-right" href="http://cepre.unac.edu.pe/"> 
-	<span class="glyphicon glyphicon-education"></span> PÁGINA WEB DEL CENTRO-PRE</a> </h5> 
+	<span class="glyphicon glyphicon-education"></span> Página Web CentroPreuniversitario</a> </h5> 
 	<h5> Teléfono: (511) - 429-6608 </h5>
 
 	</div>

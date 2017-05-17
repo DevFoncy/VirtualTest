@@ -13,7 +13,7 @@
                                          }
 
 						 		 		$foto = $_FILES['foto']; // array con toda la info
-						 		 		// var_dump($foto) // para depurar la informacion de foto
+						 		 		 // para depurar la informacion de foto
 						 		 		$nombrefoto= $foto['name'];
 						 		 		$nombreTmp = $foto['tmp_name'];
 						 		 		$rutaSubida = "{$dirsubida}profile.jpg";

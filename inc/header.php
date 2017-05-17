@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="css/flipclock.css" />
 	<link rel="stylesheet" href="css/mis-estilos.css" />
      <link rel="stylesheet" href="css/style.css">
-	
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body background="img/fondo.jpg">
 
@@ -29,13 +29,12 @@
       </div>
       <div class="container-fluid">
       	<div class="col-md-6">
-			<div class="row">
-				<a type="button" href="index.php" class="btn btn-primary">Login</a>
-				<a type="button" href="profile.php" class="btn btn-success">Perfil</a>
-				
-	   		</div>
+			
 	  </div>
-	  </div>
+
+
+
+</div>
 
 
 
