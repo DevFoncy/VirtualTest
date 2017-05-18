@@ -29,7 +29,7 @@
 	$conex4= new Database(DB_HOST,DB_USER,DB_PASS,DB_NAME);
 
 	//codigo del alumno y del examen
-	$conex2->preparar("SELECT a1.id FROM alumno_examen a1, alumno a, examen e WHERE a.id=$cod_alumno and e.id=$cod_examen");
+	$conex2->preparar("SELECT a1.id FROM alumno_examen a1, alumno a, examen e WHERE a.dni=$cod_alumno and e.id=$cod_examen");
 	$conex2->ejecutar();
 	$conex2->prep()->bind_result($nombre);
 	 while($conex2->resultado()){
@@ -41,9 +41,14 @@
 	 	$preg=$preguntas_id[$j];
 	 	$pes=$peso[$j];
 	 	$sol=$solucion[$j];
-	 	$conex2->preparar("INSERT INTO calificacion(id_examen_post,id_preg,peso,respuesta) values($nombre,$preg,$pes,$sol)");
-	 	$conex2->ejecutar();
-	 
+	 	if($conex2->preparar("INSERT INTO calificacion values ($nombre,$preg,$pes,'','$sol','')")){
+	 		$conex2->ejecutar();
+	 		//echo "exito";
+	 	}
+	 	else{
+	 		echo "no se pudo preparar la consulta";
+	 	}
+	 	
 	 }
 	 
 	 //para llenar las notas escogidas
@@ -110,6 +115,8 @@
 	 echo "<br> <strong> NOTA FINAL : </strong>".$puntaje;
 	 $conex4->preparar("UPDATE alumno_examen SET nota_final=$puntaje WHERE id=$nombre");
 	 $conex4->ejecutar();
+
+	 
  ?>
 
 

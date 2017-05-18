@@ -1,14 +1,15 @@
 <?php include 'inc/header.php'; 
 	  include 'inc/header2.php';
+	  include 'validaciones.js';
 ?>
 
 <div style="background: #fff none repeat scroll 0 0;
   border: 3px solid #999;
   margin-top: 5px;
-  min-height: 500px;
+  min-height: 450px;
   padding: 15px;
   margin-left: 12px;
-  width: 1000px;">
+  width: 1010px;">
 <?php include 'validar_datos.php';
 session_start();
 $dni=$_SESSION['dni'];
@@ -75,7 +76,7 @@ if($_POST){
 <br>
 	<div class="col-md-7 col-md-offset-2">
 
-		<form action="actualizar.php" enctype="multipart/form-data" method="POST" role="form">
+		<form action="actualizar.php" enctype="multipart/form-data" method="POST" role="form" id="formu2">
 			<div class="form-group">	
 
 			<input name=name  type="text" class="form-control" id="" placeholder="Nombres *">
@@ -95,7 +96,7 @@ if($_POST){
 			</div>
 		
 			<button type="button" class="Boton-3DLateralD" onclick="regresar()"> Regresar al Menu Principal</button>
-			<button class="Boton-3DSuperior pull-right"><span class="glyphicon glyphicon-floppy-disk"></span> Registrar Cambios</button>
+			<button type="button" class="Boton-3DSuperior pull-right" onclick="validacion2()"><span class="glyphicon glyphicon-floppy-disk"></span> Registrar Cambios</button>
 		</form>
 	</div>
 

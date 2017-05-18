@@ -1,7 +1,34 @@
 <?php include 'inc/header.php'; 
 	include 'inc/header2.php';
-	include 'validaciones.js'; ?>
-  
+	include 'validaciones.js';
+	session_start();
+	$dni=$_SESSION['dni']; 
+	date_default_timezone_set('America/Lima');
+	
+if($_POST){	
+		$horaactual = date("Y-m-d H:i:s");
+		//echo $horaactual;
+		$examen=$_POST['sel'];
+		$conex2= new Database(DB_HOST,DB_USER,DB_PASS,DB_NAME);
+		$conex2->preparar("SELECT a.id, e.id FROM alumno a, examen e WHERE a.dni=$dni and e.carrera_id=$examen");
+		$conex2->ejecutar();
+		$conex2->prep()->bind_result($alumnoID,$examenID);
+		while($conex2->resultado()){
+		}
+
+		echo $alumnoID;
+		if( $conex2->preparar("INSERT INTO alumno_examen values ('',$alumnoID,$examenID,-1,'$horaactual')")){
+				$conex2->ejecutar();
+				//echo "exito";
+				$_SESSION['carrera']=$examen;
+				header('Location: test.php');
+		}
+		else{
+				echo "hubo un problema";
+		}	
+}
+
+?>  
 <div id="main">
 <div class="col-md-11" align="center"> 
 	<div class="alert alert-info">
@@ -9,7 +36,7 @@
 							</div>
 							 <td>
 							 <h3>Escoge tu Carrera</h3>
-						 <form action="test.php" method="POST" id="formu1">
+						 <form action="examen.php" method="POST" id="formu1">
 								<select name='sel' id="soflow">
 									<option value='31'>Ingenieria Eletronica</option>
 								    <option value='1'>Administracion</option>

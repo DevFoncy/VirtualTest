@@ -17,4 +17,21 @@ function validacion(){
 
 
 }
+function validacion2(){
+		swal({
+			  title: "Estas Seguro que deseas registrar esta informacion?",
+			  text: " ",
+			  type: "info",
+			  showCancelButton: true,
+			  confirmButtonColor: "#91B0EF",
+			  confirmButtonText: "Si, deseo comenzar ahora",
+			  closeOnConfirm: false
+			},
+			function(){
+				document.getElementById("formu2").submit();
+			});
+
+
+
+}
 </script>
