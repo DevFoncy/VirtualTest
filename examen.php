@@ -1,28 +1,15 @@
-<?php include 'inc/header.php'; ?>
-   <div class="container-fluid">
-      	<div class="col-md-12">
-			<div class="row">
-				<a type="button" href="perfil.php" class="btn btn-primary"><span class="glyphicon glyphicon-user"></span>Perfil</a>
-				<a type="button" href="calificaciones.php" class="btn btn-success">Calificaciones Pasadas</a>
-				<a type="button" href="examen.php" class="btn btn-info">Rendir Examen</a>	
-				<a type="button" href="consulta.php" class="btn btn-warning">Contáctanos</a>		
-				<a type="button" href="consulta.php" class="btn btn-default pull-right"><span class="glyphicon glyphicon-log-in"></span> Cerrar Sesion</a>	
-	   		</div>
-	  </div>
-	 </div>
+<?php include 'inc/header.php'; 
+	include 'inc/header2.php';
+	include 'validaciones.js'; ?>
+  
 <div id="main">
-<?php  
- 
- 
-
-?>
-	<div class="col-md-11" align="center"> 
+<div class="col-md-11" align="center"> 
 	<div class="alert alert-info">
 							  <strong>Examenes Disponibles</strong> Tienes (1) examen a tu disposición
 							</div>
 							 <td>
 							 <h3>Escoge tu Carrera</h3>
-						 <form action="test.php" method="POST">
+						 <form action="test.php" method="POST" id="formu1">
 								<select name='sel' id="soflow">
 									<option value='31'>Ingenieria Eletronica</option>
 								    <option value='1'>Administracion</option>
@@ -44,7 +31,7 @@
 							  </td> <br>
 						<div align="center">
 							<h3>Estas Listo ?</h3>
-								<button class='Boton-LinearGradient3'>
+								<button  type="button" class='Boton-LinearGradient3' onclick="validacion()">
 								 <span class='glyphicon glyphicon-thumbs-up'></span> Comenzar Examen 
 								</button>
 
@@ -53,4 +40,5 @@
 								</div>
 								 </div>
 </div>
+
  <?php include 'inc/footer.php'; 

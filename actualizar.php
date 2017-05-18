@@ -1,14 +1,7 @@
-<?php include 'inc/header.php'; ?>
-<div class="container-fluid">
-      	<div class="col-md-6">
-			<div class="row">
-				<a type="button" href="perfil.php" class="btn btn-primary">Perfil</a>
-				<a type="button" href="calificaciones.php" class="btn btn-success">Calificaciones Pasadas</a>
-				<a type="button" href="examen.php" class="btn btn-info">Rendir Examen</a>	
-				<a type="button" href="consulta.php" class="btn btn-warning">Contáctanos</a>		
-				
-	   		</div>
-	  </div></div>
+<?php include 'inc/header.php'; 
+	  include 'inc/header2.php';
+?>
+
 <div style="background: #fff none repeat scroll 0 0;
   border: 3px solid #999;
   margin-top: 5px;
@@ -114,4 +107,4 @@ if($_POST){
 	}
 	
 </script>
-<?php include 'inc/footer.php'; 
+<?php include 'inc/footer.php'; ?>
