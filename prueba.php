@@ -3,6 +3,8 @@
  <div id="main">
 
 <?php 
+ session_start();
+
  $lista_opciones=$_POST['opcion'];
  $cod_alumno=$_POST['cod_alumno'];
  $cod_examen=$_POST['cod_examen'];
@@ -32,10 +34,9 @@
 	$conex2->preparar("SELECT a1.id FROM alumno_examen a1, alumno a, examen e WHERE a.dni=$cod_alumno and e.id=$cod_examen");
 	$conex2->ejecutar();
 	$conex2->prep()->bind_result($nombre);
-	 while($conex2->resultado()){
-	  	 
+	 while($conex2->resultado()){ 
 	 }
-	 echo $nombre;
+	 //echo $nombre;
 	 //Primero se debe actualizar la tabla calificacion con elementos estaticos : id_preguntas, pesos, clave_solucion , id_examen+id_alumno
 	 for($j=0;$j<$size;$j++){
 	 	$preg=$preguntas_id[$j];
@@ -101,24 +102,32 @@
 	$conex4->preparar("SELECT c.calificacion FROM calificacion c where id_examen_post=$nombre");
 	$conex4->ejecutar();
 	$conex4->prep()->bind_result($cal);
-
 	 while($conex4->resultado()){
 	 		$puntaje=$puntaje+$cal;
 			//echo "<br> Calificacion  de pregunta Nro:".$j."=".$cal;
 			//$j++;  	  
 	 }
+
 	 echo "<br><strong> BLOQUE : </strong>".$bloque;
 	 echo "<br><strong> CARRERA : </strong>".$carrera ;
 	 echo "<br><strong> PREGUNTAS CORRECTAS : </strong> ".$correctas;
 	 echo "<br><strong> PREGUNTAS INCORRECTAS : </strong> ".$incorrectas;
 	 echo "<br><strong> PREGUNTAS EN BLANCO : </strong> ".$blanco;
 	 echo "<br> <strong> NOTA FINAL : </strong>".$puntaje;
+
+	 //Actualizando la tabla alumno_examen
+	 $conex4->preparar("UPDATE alumno_examen SET correctas=$correctas WHERE id=$nombre");
+	 $conex4->ejecutar();
+ 	 $conex4->preparar("UPDATE alumno_examen SET incorrectas=$incorrectas WHERE id=$nombre");
+	 $conex4->ejecutar();
+	 $conex4->preparar("UPDATE alumno_examen SET blanco=$blanco WHERE id=$nombre");
+	 $conex4->ejecutar();
 	 $conex4->preparar("UPDATE alumno_examen SET nota_final=$puntaje WHERE id=$nombre");
 	 $conex4->ejecutar();
 
 	 
  ?>
-
+ <a href="perfil.php"> Regresar al menu principal </a>
 
 </div>
 <?php include 'inc/footer.php'; ?>

@@ -1,9 +1,6 @@
 <?php include 'inc/header.php'; 
 	   include 'recorrer.js' ;?>
-
-
 <div id="main">
- <div align="center"></div>
 <?php 
   	session_start();
 	echo "<div id='mi-reloj'></div>";
@@ -12,8 +9,8 @@
 	//$carrera=$_POST['sel'];
 	$id_alumno=$_SESSION['dni']; 
 	$carrera=$_SESSION['carrera'];
-	echo $id_alumno;
-	echo $carrera;
+	//echo $id_alumno;
+	//echo $carrera;
 	$a=0;
 	$b=1;
 	$c=2;

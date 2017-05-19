@@ -15,9 +15,7 @@ if($_POST){
 		$conex2->prep()->bind_result($alumnoID,$examenID);
 		while($conex2->resultado()){
 		}
-
-		echo $alumnoID;
-		if( $conex2->preparar("INSERT INTO alumno_examen values ('',$alumnoID,$examenID,-1,'$horaactual')")){
+		if( $conex2->preparar("INSERT INTO alumno_examen values ('',$alumnoID,$examenID,'','','','','$horaactual')")){
 				$conex2->ejecutar();
 				//echo "exito";
 				$_SESSION['carrera']=$examen;

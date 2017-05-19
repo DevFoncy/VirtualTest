@@ -1,0 +1,40 @@
+1
+-0.25
+Razonamiento Matematico
+Problemas Aritmeticos
+2
+0
+Razonamiento Matematico
+Problemas Aritmeticos
+3
+-0.125
+Razonamiento Matematico
+Problemas Aritmeticos
+4
+-0.625
+Razonamiento Matematico
+Problemas Aritmeticos
+5
+1
+Razonamiento Matematico
+Problemas Aritmeticos
+6
+1
+Razonamiento Matematico
+Problemas Aritmeticos
+7
+-0.175
+Razonamiento Matematico
+Problemas algebraicos
+8
+0
+Razonamiento Matematico
+Problemas algebraicos
+9
+-0.4
+Razonamiento Matematico
+Problemas algebraicos
+10
+-0.25
+Razonamiento Matematico
+Problemas algebraicos
