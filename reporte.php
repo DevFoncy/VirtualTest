@@ -22,22 +22,43 @@ require 'fpdf/fpdf.php';
 	}
 	$fecha2=explode(" ",$fecha);
 
-
+    //obtener datos detallados de las notas por cursos 
 	$conex3->preparar("SELECT c.id_preg, c.calificacion,c2.nombre, c1.nombre from calificacion c, pregunta p, curso_dividido c1, curso c2 where c.id_examen_post=30 and c.id_preg=p.id and p.curso_dividido= c1.id and c1.bloque_id=1 and c1.curso_id=c2.id and c2.bloque_id=1");
 	$conex3->ejecutar();
 	$conex3->prep()->bind_result($id,$cal,$nomc,$nomc2);
 
+
 	//Escribimos en el archivo 
+	 if(!file_exists("cursos.txt")){
+          unlink('cursos.txt');                               	
+       }
 	$file = fopen("cursos.txt", "w");
 	while($conex3->resultado()){
-		fwrite($file, $id. PHP_EOL);
-		fwrite($file, $cal. PHP_EOL);
-		fwrite($file, $nomc . PHP_EOL);
-		fwrite($file, $nomc2 . PHP_EOL);	
+		if($cal>0){
+				$desc="BUENA";
+		}
+		else{
+			if($cal==0){
+				$desc="EN BLANCO";
+			}
+			else{
+				$desc="INCORRECTA";
+			}
+		}
+		fwrite($file, $id.";".$cal.";".$desc.";".$nomc.";".$nomc2.PHP_EOL);
 	}
 	fclose($file);
 
 	class PDF extends FPDF{
+				function LoadData($file)
+				{
+				    // Leer las líneas del fichero
+				    $lines = file($file);
+				    $data = array();
+				    foreach($lines as $line)
+				        $data[] = explode(';',$line);
+				    return $data;
+				}
 				function Header()
 				{
 
@@ -71,13 +92,13 @@ require 'fpdf/fpdf.php';
 				function ChapterTitle($tipo, $tittle)
 				{
 				    // Arial 12
-				    $this->SetFont('Arial','',12);
+				    $this->SetFont('Arial','',10);
 				    // Color de fondo
 				    $this->SetFillColor(200,220,255);
 				    // Título
 				    $this->Cell(0,5,"$tipo : $tittle",0,1,'L',false);
 				    // Salto de línea
-				    $this->Ln(4);
+				    $this->Ln(2);
 				}
 
 
@@ -85,82 +106,54 @@ require 'fpdf/fpdf.php';
 				{	
 				    $this->ChapterTitle($tipo,$title);
 				}
-
+				//PARA IMPRIMIR TABLAS
 				function BasicTable($header, $data)
-{
-    // Cabecera
-    foreach($header as $col)
-        $this->Cell(40,7,$col,1);
-    $this->Ln();
-    // Datos
-    foreach($data as $row)
-    {
-        foreach($row as $col)
-            $this->Cell(40,6,$col,1);
-        $this->Ln();
-    }
-}
+					{
+					    // Cabecera
+					    foreach($header as $col)
+					        $this->Cell(40,7,$col,1);
+					    $this->Ln();
+					    // Datos
+					    foreach($data as $row)
+					    {
+					        foreach($row as $col)
+					            $this->Cell(40,6,$col,1);
+					        $this->Ln();
+					    }
+					}
+				// Una tabla más completa
+				function ImprovedTable($header, $data)
+				{
+				    // Anchuras de las columnas
+				    $w = array(25, 25,35, 50, 50);
+				    // Cabeceras
+				    for($i=0;$i<count($header);$i++)
+				        $this->Cell($w[$i],10,$header[$i],1,0,'C');
+				    $this->Ln();
+				    // Datos
+				    foreach($data as $row)
+				    {
+				        $this->Cell($w[0],6,$row[0],'LR',0,'C');
+				        $this->Cell($w[1],6,$row[1],'LR',0,'C');
+				        $this->Cell($w[2],6,$row[2],'LR',0,'C');
+				        $this->Cell($w[3],6,$row[3],'LR',0,'C');
+				        $this->Cell($w[4],6,$row[4],'LR',0,'C');
+				        $this->Ln();
+				    }
+				    // Línea de cierre
+				    $this->Cell(array_sum($w),0,'','T');
+				}
 
-// Una tabla más completa
-function ImprovedTable($header, $data)
-{
-    // Anchuras de las columnas
-    $w = array(40, 35, 45, 40);
-    // Cabeceras
-    for($i=0;$i<count($header);$i++)
-        $this->Cell($w[$i],7,$header[$i],1,0,'C');
-    $this->Ln();
-    // Datos
-    foreach($data as $row)
-    {
-        $this->Cell($w[0],6,$row[0],'LR');
-        $this->Cell($w[1],6,$row[1],'LR');
-        $this->Cell($w[2],6,number_format($row[2]),'LR',0,'R');
-        $this->Cell($w[3],6,number_format($row[3]),'LR',0,'R');
-        $this->Ln();
-    }
-    // Línea de cierre
-    $this->Cell(array_sum($w),0,'','T');
-}
+		// Una tabla más completa
+		
 
-// Tabla coloreada
-function FancyTable($header, $data)
-{
-    // Colores, ancho de línea y fuente en negrita
-    $this->SetFillColor(255,0,0);
-    $this->SetTextColor(255);
-    $this->SetDrawColor(128,0,0);
-    $this->SetLineWidth(.3);
-    $this->SetFont('','B');
-    // Cabecera
-    $w = array(40, 35, 45, 40);
-    for($i=0;$i<count($header);$i++)
-        $this->Cell($w[$i],7,$header[$i],1,0,'C',true);
-    $this->Ln();
-    // Restauración de colores y fuentes
-    $this->SetFillColor(224,235,255);
-    $this->SetTextColor(0);
-    $this->SetFont('');
-    // Datos
-    $fill = false;
-    foreach($data as $row)
-    {
-        $this->Cell($w[0],6,$row[0],'LR',0,'L',$fill);
-        $this->Cell($w[1],6,$row[1],'LR',0,'L',$fill);
-        $this->Cell($w[2],6,number_format($row[2]),'LR',0,'R',$fill);
-        $this->Cell($w[3],6,number_format($row[3]),'LR',0,'R',$fill);
-        $this->Ln();
-        $fill = !$fill;
-    }
-    // Línea de cierre
-    $this->Cell(array_sum($w),0,'','T');
-}
-
+		// Tabla coloreada
+		
 	}
 	$pdf = new PDF();
 	$pdf->AddPage();
 	$pdf->Ln(4);
-	$pdf->SetFont('Arial','B',13);
+	$pdf->SetFont('Arial','B',10);
 	$pdf->Cell(0,5,"DATOS DEL ALUMNO",0,2,'L');
 	$pdf->Ln(2);
 	$pdf->PrintChapter("NOMBRES",$nom,'20k_c1.txt');
@@ -169,9 +162,9 @@ function FancyTable($header, $data)
 	$pdf->PrintChapter("CARRERA",utf8_decode($carrera),'20k_c1.txt');
 
 
-	$pdf->SetFont('Arial','B',13);
+	$pdf->SetFont('Arial','B',10);
 	$pdf->Cell(0,5,"DATOS DEL EXAMEN",0,2,'L');
-	$pdf->Ln(4);
+	$pdf->Ln(2);
 	
 	$pdf->PrintChapter("NOTA FINAL DEL EXAMEN",$nota,'20k_c1.txt');
 	$pdf->PrintChapter("PREGUNTAS CORRECTAS",$buena,'20k_c1.txt');
@@ -179,6 +172,19 @@ function FancyTable($header, $data)
 	$pdf->PrintChapter("PREGUNTAS EN BLANCO",$blanco,'20k_c1.txt');
 	$pdf->PrintChapter("FECHA ",$fecha2[0],'20k_c1.txt');
 	$pdf->PrintChapter("HORA ",$fecha2[1],'20k_c1.txt');
+
+	$pdf->SetFont('Arial','B',10);
+	$pdf->Cell(0,5,"INFORME DETALLADO ",0,2,'C');
+	$pdf->Ln(2);
+
+	$header = array('Nro Pregunta', 'Calificacion', 'Descripcion','Curso', 'Categoria');
+	// Carga de datos
+	$data = $pdf->LoadData('cursos.txt');
+	$pdf->SetFont('Arial','',10);
+
+	$pdf->ImprovedTable($header,$data);
+	//$pdf->AddPage();
+	//$pdf->FancyTable($header,$data);
 
 
 
